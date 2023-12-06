@@ -44,7 +44,21 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
 To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
 After deploying get the APPID and APPPassword. 
 Change the example.env to .env and paste the values.
+## Code Explaination 
 
+1. Environment Variables: Load environment variables from a .env file. These variables include the bot's Microsoft App ID, password, type, and tenant ID. 
+ 
+2. Server Setup:  Sets up an HTTP server using restify. The server listens on a port specified by the environment variable port or PORT, or defaults to 3978 if neither is set. 
+ 
+3. Bot Authentication:  Creates a ConfigurationServiceClientCredentialFactory with the Microsoft App credentials. This factory is used to create a botFrameworkAuthentication object, which is used to authenticate the bot with the Bot Framework service. 
+ 
+4. Bot Adapter:  Creates a CloudAdapter with the botFrameworkAuthentication object. The adapter is responsible for sending and receiving messages from the user. 
+ 
+5. Error Handling: sets up an error handler for the adapter. If an error occurs during a turn of the conversation, the bot sends a trace activity (visible in the Bot Framework Emulator) and two messages to the user. 
+ 
+6. Bot Dialog: It creates an instance of EchoBot which contains the logic of Printing the User messages in console, This is where the bot's behavior is defined. 
+ 
+7. Request Handling: It sets up two routes on the server for handling incoming requests. The /api/messages route is for normal HTTP requests, and the upgrade event is for WebSocket connections. Both routes use the adapter to process the requests and run the bot's dialog. 
 ## Further reading
 
 - [Bot Framework Documentation](https://docs.botframework.com)
